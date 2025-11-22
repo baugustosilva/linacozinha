@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>LINA Cozinha //</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+
+  <style>
+    body {
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      font-family: Helvetica, Arial, sans-serif;
+      color: #eae1b9;
+      overflow-x: hidden;
+    }
+
+    video.bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.1);
+      z-index: -1;
+    }
+
+    .menu {
+      position: fixed;
+      top: 30px;
+      width: 100%;
+      display: flex;
+      padding: 0 40px;
+      box-sizing: border-box;
+      z-index: 1000;
+    }
+
+    .menu a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 28px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 400;
+      cursor: pointer;
+    }
+
+    .menu a:hover {
+      color: #ffffff;
+    }
+
+    .menu a:nth-child(1) { margin-right: auto; }
+    .menu a:nth-child(2) {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .menu a:nth-child(3) { margin-left: auto; }
+
+    .logo {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 900px;
+      max-width: 80vw;
+      z-index: 10;
+      display: none;
+    }
+
+    .show-logo .logo {
+      display: block;
+    }
+
+    .content {
+  height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  max-width: 800px;
+  margin: 0 auto;
+  transition: opacity 0.1s ease;
+}
+
+    .content.fade {
+      opacity: 0;
+    }
+
+    .about-wrapper {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: calc(100vh - 60px);
+    }
+
+    .about-container {
+      padding: 40px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      width: 90%;
+      max-width: 800px;
+    }
+
+    .language-switch {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .language-switch a {
+      color: #eae1b9;
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    .language-switch a.active {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    .contact-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  padding-left: 300;
+  gap: 80px;
+  height: 100vh;
+  box-sizing: border-box;
+  position: relative;
+  left: -550px;
+}
+
+    .contact-container a {
+      color: #ffffff;
+      font-size: 42px;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    .contact-container a:hover {
+      color: #ffffff;
+    }
+
+    .footer-logo {
+      display: block;
+      width: 200px;
+      margin: 40px auto 0;
+    }
+
+    .partner-logos-fixed {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      z-index: 20;
+    }
+
+    .partner-logos-fixed img {
+      width: 120px;
+      opacity: 0.7;
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .partner-logos-fixed img:hover {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <video autoplay muted playsinline loop class="bg-video">
+    <source src="assets/LINA.mp4" type="video/mp4">
+  </video>
+  <div class="overlay"></div>
+
+  <!--<nav class="menu">
+     <a href="/" onclick="loadPage('home'); return false;">HOME</a>
+    <a onclick="loadPage('contact')">CONTACT</a>
+  </nav> -->
+
+  <img id="LINA-logo" class="logo" alt="LINA">
+
+  <div id="content" class="content"></div>
+
+  <script>
+    const pages = {
+      home: ``,
+      about: `
+        <div class="about-wrapper">
+          <div class="about-container">
+            <div class="language-switch">
+              <a id="btn-pt" class="active" onclick="switchLanguage('pt')">PT</a>
+              <a id="btn-en" onclick="switchLanguage('en')">EN</a>
+            </div>
+            <div id="text-pt">
+              <p>O BANDO não nasceu com um plano.</p>
+              <p>Nasceu do impulso de pedalar, de estar junto, de formar um corpo em movimento. Um grupo que se move como se move uma ideia — viva, orgânica e concreta.</p>
+              <p>Não somos assessoria e não temos protocolo. Somos um coletivo. Um organismo que pedala porque o mundo exige. Porque o corpo pede. Porque estar em grupo faz sentido quando a paisagem muda.</p>
+              <p>Nosso ciclismo não se limita à estrada: ele é linguagem, é estética, é maneira de existir. Registramos nossos encontros porque sabemos que memória sem registro se desfaz. Mas o que documentamos não é só o pedal — é a vida que cabe entre a largada e a pausa pro café.</p>
+              <p>Acreditamos no conteúdo como forma de partilha e na bicicleta como extensão do que somos: reais, tangíveis, imperfeitos e em constante movimento.</p>
+              <p>Um bando, no sentido mais amplo da palavra — de amigos, de ideias, de intenções. De quem compete, de quem contempla, de quem constrói comunidade sem pedir licença.</p>
+            </div>
+            <div id="text-en" style="display: none;">
+              <p>BANDO wasn’t born from a plan.</p>
+              <p>It was born from the urge to ride, to be together, to form a moving body. A group that moves like an idea moves — alive, organic, and concrete.</p>
+              <p>We’re not a training team, and we don’t follow a protocol. We’re a collective. An organism that rides because the world demands it. Because the body asks for it. Because riding in a group makes sense when the landscape changes.</p>
+              <p>Our cycling isn’t limited to the road: it’s language, it’s aesthetic, it’s a way of existing. We document our gatherings because we know that memory without record fades. But what we document isn’t just the ride — it’s the life that fits between the start and the coffee stop.</p>
+              <p>We believe in content as a way of sharing and in the bike as an extension of who we are: real, tangible, imperfect, and in constant motion.</p>
+              <p>A bando, in the broadest sense of the word — of friends, of ideas, of intentions. Of those who compete, those who contemplate, those who build community without asking permission.</p>
+            </div>
+          </div>
+          <img src="assets/logo-bando-1.png" class="footer-logo" alt="BANDO">
+        </div>
+      `,
+      contact: `
+        <div class="contact-container">
+          <a href="https://www.instagram.com/XXXXXX" target="_blank">Instagram</a>
+        </div>
+      `
+    };
+
+    function loadPage(page) {
+      const body = document.body;
+      const contentDiv = document.getElementById('content');
+      contentDiv.classList.add('fade');
+      setTimeout(() => {
+        contentDiv.innerHTML = pages[page];
+        contentDiv.classList.remove('fade');
+        body.classList.toggle('show-logo', page === 'home');
+      }, 75);
+    }
+
+    function switchLanguage(lang) {
+      document.getElementById('text-pt').style.display = lang === 'pt' ? 'block' : 'none';
+      document.getElementById('text-en').style.display = lang === 'en' ? 'block' : 'none';
+      document.getElementById('btn-pt').classList.toggle('active', lang === 'pt');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    }
+
+    function loadRandomLogo() {
+          const totalLogos = 1;
+          const randomNum = Math.floor(Math.random() * totalLogos) + 1;
+          const logoPath = `assets/logo-LINA-${randomNum}.png`;
+          const logoElement = document.getElementById('LINA-logo');
+          logoElement.src = logoPath;
+
+          for (let i = 1; i <= totalLogos; i++) {
+            if (i !== randomNum) {
+              const img = new Image();
+              img.src = `assets/logo-LINA-${i}.png`;
+            }
+          }
+        }
+
+    window.addEventListener('load', () => {
+      loadRandomLogo();
+      loadPage('home');
+    });
+  </script>
+</body>
+</html>
